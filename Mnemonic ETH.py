@@ -2,7 +2,7 @@ import random
 import time
 import concurrent.futures as cf
 import requests
-from requests.exceptions import RequestException  # Importing RequestException for handling requests errors
+from requests.exceptions import RequestException 
 from blessed import Terminal
 import psutil
 from rich.panel import Panel
@@ -17,26 +17,23 @@ conv = Convertor()
 eth = Ethereum()
 console = Console()
 
-
 def OnClear():
     if "win" in sys.platform.lower():
         os.system("cls")
     else:
         os.system("clear")
 
-
 def balance(addr):
     url_n = f"https://ethbook.guarda.co/api/v2/address/{addr}"
     try:
         req = requests.get(url_n)
-        req.raise_for_status()  # Raises an error for bad responses (4xx and 5xx)
+        req.raise_for_status()  
         return dict(req.json()).get("balance", "0")
     except RequestException as e:
-        if e.response and e.response.status_code == 429:  # Check for rate limit error
+        if e.response and e.response.status_code == 429: 
             print("Достигнут лимит API, ожидаем 1 час...")
-            time.sleep(3600)  # Wait for 1 hour
-        return "0"  # Return "0" if there's any error
-
+            time.sleep(3600) 
+        return "0" 
 
 def transaction(addr):
     try:
@@ -44,11 +41,10 @@ def transaction(addr):
         req.raise_for_status()
         return int(dict(req.json()).get("txs", 0))
     except RequestException as e:
-        if e.response and e.response.status_code == 429:  # Check for rate limit error
+        if e.response and e.response.status_code == 429:  
             print("Достигнут лимит API, ожидаем 1 час...")
-            time.sleep(3600)  # Wait for 1 hour
-        return 0  # Return 0 if there's any error
-
+            time.sleep(3600)  
+        return 0 
 
 def draw_system_status(term):
     cpu_percent = psutil.cpu_percent()
@@ -62,7 +58,6 @@ def draw_system_status(term):
     )
     return system_status
 
-
 def draw_ethereum_info(z, w, addr, priv, mixWord, txs):
     eth_info_panel = (
         f'\n[gold1]Total Checked: [orange_red1]{z}[/][gold1]  Win: [white]{w}[/]'
@@ -71,7 +66,6 @@ def draw_ethereum_info(z, w, addr, priv, mixWord, txs):
     )
     return eth_info_panel
 
-
 def draw_graph(title, percent, width):
     bar_length = int(width - 17)
     num_blocks = int(percent * bar_length / 100)
@@ -79,7 +73,6 @@ def draw_graph(title, percent, width):
     barFill = "[green]▬[/]"
     bar = barFill * num_blocks + dash * (bar_length - num_blocks)
     return f"[white]{title}[/]: |{bar}| {percent}%"
-
 
 def main():
     term = Terminal()
@@ -102,14 +95,12 @@ def main():
 
                 if txs > 0:
                     w += 1
-                    # Сохраняем адреса с транзакциями
                     with open("Found_ETH.txt", "a") as fr:
                         fr.write(f"{addr} TXS: {txs} BAL: {balance(addr)}\n")
                         fr.write(f"{priv}\n")
                         fr.write(f"{words}\n")
                         fr.write(f"{'-' * 50}\n")
                 else:
-                    # Сохраняем адреса без транзакций
                     with open("BAD_ETH.txt", "a") as fr:
                         fr.write(f"ADDR: {addr}\n")
                         fr.write(f"PRIVATE: {priv}\n")
@@ -122,7 +113,6 @@ def main():
                     console.print(Panel(eth_info_panel, title="[white]Ethereum Mnemonic Checker V1[/]", style="green"),
                                   justify="full", soft_wrap=True)
                 z += 1
-
 
 if __name__ == "__main__":
     with cf.ProcessPoolExecutor(max_workers=os.cpu_count()) as executor:
