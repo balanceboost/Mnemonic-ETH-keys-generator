@@ -7,19 +7,12 @@
 Сначала установите все необходимые зависимости. 
 Создайте файл requirements.txt с таким содержимым:
 
-	aiohttp
-	aiofiles
-	blessed
-	colorama
-	configparser
-	cryptofuzz
-	keyboard
-	mnemonic
-	psutil
-	pyfiglet
 	requests
+	blessed
+	psutil
 	rich
-	web3
+	cryptofuzz
+	mnemonic
 
 Далее выполните команду:
 
@@ -37,19 +30,12 @@ This program performs a check of Ethereum addresses generated from mnemonic phra
 Usage Instructions:
 First, install all necessary dependencies. Create a requirements.txt file with the following content:
 
-	aiohttp
-	aiofiles
-	blessed
-	colorama
-	configparser
-	cryptofuzz
-	keyboard
-	mnemonic
-	psutil
-	pyfiglet
 	requests
+	blessed
+	psutil
 	rich
-	web3
+	cryptofuzz
+	mnemonic
  
 Then, run the command:
 
