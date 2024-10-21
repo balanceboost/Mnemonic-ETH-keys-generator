@@ -20,7 +20,7 @@
 
 Запустите скрипт в консоли командой:
 
-	python script.py
+	python Mnemonic ETH.py
 --------------------------------------------------------------------------------------
 This program performs a check of Ethereum addresses generated from mnemonic phrases for transactions and balances. It also displays real-time system metrics (CPU, RAM, and disk usage), and saves the results to files:
 
@@ -43,4 +43,4 @@ Then, run the command:
  
 Start the script by running the following command in the console:
 
-	python script.py
+	python Mnemonic ETH.py
